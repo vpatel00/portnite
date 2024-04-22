@@ -16,6 +16,7 @@ try:
   import time
   import questions
   from heals import Heals
+
   
   #from playsound import playsound
   #Issues installing playsound on replit, uncomment the line above when submitting
@@ -29,7 +30,7 @@ try:
   ]
   
   Gameplay_Action_List = [
-      "Loot Chest", "Heal", "Fight Someone"
+      "Loot Chest", "Heal", "Fight Someone", "Drop Item"
   ]
   
   opponents_list = [
@@ -240,7 +241,17 @@ try:
       game_defeat()
       main_GUI()
       #quit()
-  
+        
+  def drop_item(inventory):
+      print(f"Your inventory: {[x.name for i in inventory for x in i]}")
+      item = int(input("Choose the item you want to drop (1-5): "))
+      try:
+        print(f"You dropped {inventory.pop(item - 1).name}")
+      except:
+        print("There are no items to drop.")
+
+      
+      return inventory
 
   
   #-------------- START FUNCTION, runs when code runs for the first time ----------------------------
@@ -488,7 +499,8 @@ try:
             elif questions.ask_question(questions.q_and_a):
               player_health = fight(inventory, player_health, guns)
             player_count -= (random.randint(5, 10))
-  
+        elif gameplay_action_input == "Drop Item" or gameplay_action_input == "drop item":
+          inventory = drop_item(inventory)
         else:
           clear()
         
